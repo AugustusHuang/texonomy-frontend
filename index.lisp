@@ -21,30 +21,22 @@
 ;;;; ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 ;;;; OTHER DEALINGS IN THE SOFTWARE.
 
-(defpackage :texonomy-pages
-  (:use :cl
-	:weblocks
-	:f-underscore
-	:anaphora)
-  (:import-from :hunchentoot)
-  (:documentation
-   "Static texonomy front-end pages package.")
-  (:export
-   :start-texonomy
-   :stop-texonomy))
+(in-package :texonomy-pages)
 
-(defpackage :texonomy-js
-  (:use :cl
-	:weblocks)
-  (:documentation
-   "texonomy javascript utilities package.")
-  (:export))
+(defwebapp texonomy
+    :prefix "/"
+    :description "texonomy: An online tex symbol recognition tool."
+    :init-user-session 'texonomy::init-user-session
+    :autostart nil                   ;; have to start the app manually
+    :ignore-default-dependencies nil ;; accept the defaults
+    :debug t)
 
-(defpackage :texonomy-json
-  (:use :cl
-	:weblocks
-	:cl-json)
-  (:documentation
-   "texonomy json data handling package.")
-  (:export))
+(defun start-texonomy (&rest args)
+  "Start the application by calling 'start-weblocks' with appropriate arguments."
+  (apply #'start-weblocks args)
+  (start-webapp 'texonomy))
 
+(defun stop-texonomy ()
+  "Stop the application by calling 'stop-weblocks'."
+  (stop-webapp 'texonomy)
+  (stop-weblocks))
