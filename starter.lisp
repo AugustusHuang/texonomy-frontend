@@ -26,7 +26,7 @@
 (defwebapp texonomy
     :prefix "/"
     :description "texonomy: An online tex symbol recognition tool."
-    :init-user-session 'texonomy::init-user-session
+    :init-user-session 'texonomy-pages::init-user-session
     :autostart nil                   ;; have to start the app manually
     :ignore-default-dependencies nil ;; accept the defaults
     :debug t)
@@ -40,3 +40,4 @@
   "Stop the application by calling 'stop-weblocks'."
   (stop-webapp 'texonomy)
   (stop-weblocks))
+
