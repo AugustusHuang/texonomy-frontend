@@ -20,8 +20,31 @@
 
 (defparameter +index+ (djula:compile-template* "index.html"))
 
+;(defparameter +recognize+ (djula:compile-template* "recognize.html"))
+
+;(defparameter +report+ (djula:compile-template* "report.html"))
+
 ;;; Views
 
 @route app "/"
 (defview index ()
   (render-template (+index+)))
+
+;@route app "/recognize"
+;(defview recognize ()
+;  (render-template (+recognize+)))
+
+;@route app (:post "/snapshot")
+;(defview snapshot ()
+;  (if ()
+      ;; Succeed. Save the snapshot and redirect to index.html.
+;      (progn
+;	(redirect "/"))
+      ;; Failed. Tell the user with a pop-up window and redirect to index.html.
+;      (progn
+;	(redirect "/"))))
+
+;@route app "/report"
+;(defview report ()
+;  (render-template (+report+)))
+
