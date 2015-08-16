@@ -1,6 +1,6 @@
 /* JavaScript */
 
-var canvas, ctx, flag = false,
+var canvas, context, flag = false,
     prevX = 0,
     currX = 0,
     prevY = 0,
@@ -12,7 +12,7 @@ var x = "black",
 
 function init() {
     canvas = document.getElementById('can');
-    ctx = canvas.getContext("2d");
+    context = canvas.getContext("2d");
     w = canvas.width;
     h = canvas.height;
 
@@ -60,21 +60,18 @@ function color(obj) {
 }
 
 function draw() {
-    ctx.beginPath();
-    ctx.moveTo(prevX, prevY);
-    ctx.lineTo(currX, currY);
-    ctx.strokeStyle = x;
-    ctx.lineWidth = y;
-    ctx.stroke();
-    ctx.closePath();
+    context.beginPath();
+    context.moveTo(prevX, prevY);
+    context.lineTo(currX, currY);
+    context.strokeStyle = x;
+    context.lineWidth = y;
+    context.stroke();
+    context.closePath();
 }
 
 function erase() {
-    var m = confirm("Want to clear");
-    if (m) {
-        ctx.clearRect(0, 0, w, h);
-        document.getElementById("canvasimg").style.display = "none";
-    }
+    context.clearRect(0, 0, w, h);
+    document.getElementById("canvasimg").style.display = "none";
 }
 
 function recognize() {
@@ -94,10 +91,10 @@ function findxy(res, e) {
         flag = true;
         dot_flag = true;
         if (dot_flag) {
-            ctx.beginPath();
-            ctx.fillStyle = x;
-            ctx.fillRect(currX, currY, 2, 2);
-            ctx.closePath();
+            context.beginPath();
+            context.fillStyle = x;
+            context.fillRect(currX, currY, 2, 2);
+            context.closePath();
             dot_flag = false;
         }
     }
