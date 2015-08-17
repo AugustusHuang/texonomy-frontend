@@ -1,34 +1,86 @@
 {% extends "base.html" %}
 
 {% block content %}
-<section id="banner">
-  <h2><strong>Texonomy</strong></h2>
+<header>
+  <h1><strong>Texonomy</strong></h1>
   <p>A free online TeX symbol recognizer</p>
-</section>
+</header>
 
-<section id="one">
-  <canvas id="can" width="300" height="300" style="position:relative;top:30px;left:300px;border:2px solid;"></canvas>
-  <img id="canvasimg" style="display:none;">
+<section>
+  <div id="input" style="height:500px;">
+    <h3 style="text-align:center;">Draw a symbol!</h3>
+    <div id="draw">
+      <table style="width:100%;">
+	<tr>
+	  <td><canvas id="can" width="298" height="298" style="position:relative;border:2px solid;"></canvas></td>
+	  <!--
+	  <td><div id="eraser" style="position:relative;">
+	      <div id="name">Color</div>
+	      <div id="white" style="position:relative;width:15px;height:15px;background-color:white;border:1px solid;" onclick="color(this)"></div>
+	      <div id="black" style="position:relative;width:15px;height:15px;background-color:black;border:1px solid;" onclick="color(this)"></div></div>
+	  </td>-->
+	  <td><img id="canvasimg" style="position:relative;display:none"></td>
+	</tr>
+      </table>
+    </div>
 
-  <div style="position:relative;top:-50px;left:500px;">ERASER</div>
-
-  <!-- Change COLOR to a function, firstly change point to circle, then change color. -->
-  <div style="position:relative;top:-55px;left:510px;width:15px;height:15px;background:white;border:2px solid;" id="white" onclick="color(this)"></div>
-
-  <input type="button" value="submit" id="sbmt" size="30" onclick="recognize()" style="position:relative;bottom:50px;left:300px;">
-
-  <input type="button" value="clear" id="clr" size="30" onclick="erase()" style="position:relative;bottom:30px;left:300px;">
-</section>
-
-<footer id="footer">
-  <div class="copyright">
-    &copy; Untitled. Design: <a href="http://templated.co/">TEMPLATED</a>.
+    <div id="buttons" style="position:relative;top:30px">
+      <input type="button" value="recognize" id="sbmt" class="buttons" size="100" onclick="recognize()" style="position:relative;left:50px;">
+      <input type="button" value="snapshot" id="shot" class="buttons" size="100" onclick="snapshot()" style="position:relative;left:150px;">
+      <input type="button" value="clear" id="clr" class="buttons" size="100" onclick="erase()" style="position:relative;left:250px;">
+    </div>
   </div>
-</footer>
 
-<script src="/static/jquery.min.js"></script>
-<script src="/static/skel.min.js"></script>
-<script src="/static/util.js"></script>
-<!--[if lte IE 8]><script src="/static/respond.min.js"></script><![endif]-->
-<script src="/static/main.js"></script>
+  <!-- List five most possible output, symbols will be there using MathJax? -->
+  <div id="output">
+    <table id="output-table" style="width:100%">
+      <tr>
+	<th>Header1</th>
+	<th>Header2</th>
+	<th>Header3</th>
+      </tr>
+      <tr>
+	<td>Placeholder1</td>
+	<td>Placeholder2</td>
+	<td>Placeholder3</td>
+      </tr>
+      <tr>
+	<td>Placeholder1</td>
+	<td>Placeholder2</td>
+	<td>Placeholder3</td>
+      </tr>
+      <tr>
+	<td>Placeholder1</td>
+	<td>Placeholder2</td>
+	<td>Placeholder3</td>
+      </tr>
+      <tr>
+	<td>Placeholder1</td>
+	<td>Placeholder2</td>
+	<td>Placeholder3</td>
+      </tr>
+      <tr>
+	<td>Placeholder1</td>
+	<td>Placeholder2</td>
+	<td>Placeholder3</td>
+      </tr>
+    </table>
+  </div>
+</section>
+
+<footer>
+  <div id="github">
+    <p>
+      <a href="https://github.com/AugustusHuang/">
+	<span class="icon  icon--github">
+	  <svg width="16" height="16" viewBox="0 0 16 16">
+	    <path fill="#828282" d="M7.999,0.431c-4.285,0-7.76,3.474-7.76,7.761 c0,3.428,2.223,6.337,5.307,7.363c0.388,0.071,0.53-0.168,0.53-0.374c0-0.184-0.007-0.672-0.01-1.32 c-2.159,0.469-2.614-1.04-2.614-1.04c-0.353-0.896-0.862-1.135-0.862-1.135c-0.705-0.481,0.053-0.472,0.053-0.472 c0.779,0.055,1.189,0.8,1.189,0.8c0.692,1.186,1.816,0.843,2.258,0.645c0.071-0.502,0.271-0.843,0.493-1.037 C4.86,11.425,3.049,10.76,3.049,7.786c0-0.847,0.302-1.54,0.799-2.082C3.768,5.507,3.501,4.718,3.924,3.65 c0,0,0.652-0.209,2.134,0.796C6.677,4.273,7.34,4.187,8,4.184c0.659,0.003,1.323,0.089,1.943,0.261 c1.482-1.004,2.132-0.796,2.132-0.796c0.423,1.068,0.157,1.857,0.077,2.054c0.497,0.542,0.798,1.235,0.798,2.082 c0,2.981-1.814,3.637-3.543,3.829c0.279,0.24,0.527,0.713,0.527,1.437c0,1.037-0.01,1.874-0.01,2.129 c0,0.208,0.14,0.449,0.534,0.373c3.081-1.028,5.302-3.935,5.302-7.362C15.76,3.906,12.285,0.431,7.999,0.431z"></path>
+	  </svg>
+	</span>
+	<span class="username">AugustusHuang</span>
+      </a>
+    </p>
+  </div>
+<footer>
+
 {% endblock %}

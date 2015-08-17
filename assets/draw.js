@@ -32,21 +32,6 @@ function init() {
 
 function color(obj) {
     switch (obj.id) {
-        case "green":
-            x = "green";
-            break;
-        case "blue":
-            x = "blue";
-            break;
-        case "red":
-            x = "red";
-            break;
-        case "yellow":
-            x = "yellow";
-            break;
-        case "orange":
-            x = "orange";
-            break;
         case "black":
             x = "black";
             break;
@@ -111,3 +96,4 @@ function findxy(res, e) {
         }
     }
 }
+
