@@ -5,6 +5,8 @@ var canvas, context, flag = false,
     currX = 0,
     prevY = 0,
     currY = 0,
+    scrolledLeft = 0,
+    scrolledTop = 0,
     dot_flag = false;
 
 var x = "black",
@@ -30,7 +32,8 @@ function init() {
     }, false);
 }
 
-function color(obj) {
+/* FIXME: Do we need an eraser? How about colorful symbols? */
+/* function color(obj) {
     switch (obj.id) {
         case "black":
             x = "black";
@@ -41,8 +44,8 @@ function color(obj) {
     }
     if (x == "white") y = 14;
     else y = 2;
-
 }
+*/
 
 function draw() {
     context.beginPath();
@@ -66,12 +69,39 @@ function recognize() {
     document.getElementById("canvasimg").style.display = "inline";
 }
 
+/* Try to solve mouse scrolling problems. From stackoverflow. */
+/* FIXME: still we are facing our problems... */
+/* $(document).mousemove(function(event) {
+    captureMousePosition(event);
+})
+
+$(window).scroll(function(event) {
+    if (scrollLeft != $(document).scrollLeft()) {
+	xMousePos -= scrollLeft;
+	scrollLeft = $(document).scrollLeft();
+	xMousePos += scrollLeft;
+    }
+    if (scrollTop != $(document).scrollTop()) {
+	yMousePos -= scrollTop;
+	scrollTop = $(document).scrollTop();
+	yMousePos += scrollTop;
+    }
+    window.status = "x = " + xMousePos + " y = " + yMousePos;
+});
+
+function captureMousePostion(event) {
+    xMousePos = event.pageX;
+    yMousePos = event.pageY;
+    window.status = "x = " + xMousePos + " y = " + yMousePos;
+}
+*/
+
 function findxy(res, e) {
     if (res == 'down') {
         prevX = currX;
         prevY = currY;
-        currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop;
+        currX = e.clientX - canvas.offsetLeft + document.body.scrollLeft;
+        currY = e.clientY - canvas.offsetTop + document.body.scrollTop;
 
         flag = true;
         dot_flag = true;
@@ -90,8 +120,8 @@ function findxy(res, e) {
         if (flag) {
             prevX = currX;
             prevY = currY;
-            currX = e.clientX - canvas.offsetLeft;
-            currY = e.clientY - canvas.offsetTop;
+            currX = e.clientX - canvas.offsetLeft + document.body.scrollLeft;
+            currY = e.clientY - canvas.offsetTop + document.body.scrollTop;
             draw();
         }
     }
