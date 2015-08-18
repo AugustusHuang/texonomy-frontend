@@ -5,12 +5,12 @@ var canvas, context, flag = false,
     currX = 0,
     prevY = 0,
     currY = 0,
-    scrolledLeft = 0,
-    scrolledTop = 0,
+    //tempX = 0,
+    //tempY = 0,
     dot_flag = false;
 
 var x = "black",
-    y = 2;
+    y = 3;
 
 function init() {
     canvas = document.getElementById('can');
@@ -21,6 +21,10 @@ function init() {
     canvas.addEventListener("mousemove", function (e) {
         findxy('move', e)
     }, false);
+    // Test.
+    //canvas.addEventListener("mousemove", function (e) {
+	//showxy(e)
+    //}, false);
     canvas.addEventListener("mousedown", function (e) {
         findxy('down', e)
     }, false);
@@ -31,6 +35,15 @@ function init() {
         findxy('out', e)
     }, false);
 }
+
+/*
+function showxy(e) {
+    tempX = event.clientX - canvas.offsetLeft + document.body.scrollLeft;
+    tempY = event.clientY - canvas.offsetTop + document.body.scrollTop;
+    document.show.mousex.value = tempX;
+    document.show.mousey.value = tempY;
+}
+*/
 
 /* FIXME: Do we need an eraser? How about colorful symbols? */
 /* function color(obj) {
@@ -43,10 +56,11 @@ function init() {
             break;
     }
     if (x == "white") y = 14;
-    else y = 2;
+    else y = 3;
 }
 */
 
+// Draw something on canvas.
 function draw() {
     context.beginPath();
     context.moveTo(prevX, prevY);
@@ -57,11 +71,14 @@ function draw() {
     context.closePath();
 }
 
+// Clear the canvas, hide the canvas image.
 function erase() {
     context.clearRect(0, 0, w, h);
     document.getElementById("canvasimg").style.display = "none";
 }
 
+// FIXME: This function should have different name since it is supposed to save
+// the image.
 function recognize() {
     document.getElementById("canvasimg").style.border = "2px solid";
     var dataURL = canvas.toDataURL();
@@ -69,39 +86,15 @@ function recognize() {
     document.getElementById("canvasimg").style.display = "inline";
 }
 
-/* Try to solve mouse scrolling problems. From stackoverflow. */
-/* FIXME: still we are facing our problems... */
-/* $(document).mousemove(function(event) {
-    captureMousePosition(event);
-})
-
-$(window).scroll(function(event) {
-    if (scrollLeft != $(document).scrollLeft()) {
-	xMousePos -= scrollLeft;
-	scrollLeft = $(document).scrollLeft();
-	xMousePos += scrollLeft;
-    }
-    if (scrollTop != $(document).scrollTop()) {
-	yMousePos -= scrollTop;
-	scrollTop = $(document).scrollTop();
-	yMousePos += scrollTop;
-    }
-    window.status = "x = " + xMousePos + " y = " + yMousePos;
-});
-
-function captureMousePostion(event) {
-    xMousePos = event.pageX;
-    yMousePos = event.pageY;
-    window.status = "x = " + xMousePos + " y = " + yMousePos;
-}
-*/
-
+// Find current coordinate, should notice the scroll.
+// NOTE: The coordinate won't change if we scroll down or right, but the
+// absolute position will change.
 function findxy(res, e) {
-    if (res == 'down') {
+    if (res == "down") {
         prevX = currX;
         prevY = currY;
-        currX = e.clientX - canvas.offsetLeft + document.body.scrollLeft;
-        currY = e.clientY - canvas.offsetTop + document.body.scrollTop;
+        currX = e.clientX// - canvas.offsetLeft - document.body.scrollLeft;
+        currY = e.clientY// - canvas.offsetTop - document.body.scrollTop;
 
         flag = true;
         dot_flag = true;
@@ -113,15 +106,15 @@ function findxy(res, e) {
             dot_flag = false;
         }
     }
-    if (res == 'up' || res == "out") {
+    if (res == "up" || res == "out") {
         flag = false;
     }
-    if (res == 'move') {
+    if (res == "move") {
         if (flag) {
             prevX = currX;
             prevY = currY;
-            currX = e.clientX - canvas.offsetLeft + document.body.scrollLeft;
-            currY = e.clientY - canvas.offsetTop + document.body.scrollTop;
+            currX = e.clientX// - canvas.offsetLeft - document.body.scrollLeft;
+            currY = e.clientY// - canvas.offsetTop - document.body.scrollTop;
             draw();
         }
     }
