@@ -8,26 +8,31 @@ var canvas, context, flag = false,
     dot_flag = false;
 
 var x = "black",
-    y = 3;
+    y = 4;
 
 function init() {
-    canvas = document.getElementById('can');
+    canvas = document.getElementById("can");
     context = canvas.getContext("2d");
     w = canvas.width;
     h = canvas.height;
 
     canvas.addEventListener("mousemove", function (e) {
-        findxy('move', e)
+        findxy("move", e)
     }, false);
     canvas.addEventListener("mousedown", function (e) {
-        findxy('down', e)
+        findxy("down", e)
     }, false);
     canvas.addEventListener("mouseup", function (e) {
-        findxy('up', e)
+        findxy("up", e)
     }, false);
     canvas.addEventListener("mouseout", function (e) {
-        findxy('out', e)
+        findxy("out", e)
     }, false);
+}
+
+// Change the cursor shape to a circle when mouse over canvas.
+function changeCursor () {
+    document.getElementById("can").style.cursor = "url(/static/black-circle-8.png),auto";
 }
 
 /* FIXME: Do we need an eraser? How about colorful symbols? */
@@ -41,9 +46,11 @@ function init() {
             break;
     }
     if (x == "white") y = 14;
-    else y = 3;
+    else y = 4;
 }
 */
+
+// And do we need a function to resize the cursor?
 
 // Draw something on canvas.
 function draw() {
