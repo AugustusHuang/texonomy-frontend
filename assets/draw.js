@@ -93,8 +93,10 @@ function findxy(res, e) {
     if (res == "down") {
         prevX = currX;
         prevY = currY;
-        currX = e.clientX// - canvas.offsetLeft - document.body.scrollLeft;
-        currY = e.clientY// - canvas.offsetTop - document.body.scrollTop;
+        currX = e.offsetX// - canvas.offsetLeft - document.body.scrollLeft;
+        currY = e.offsetY// - canvas.offsetTop - document.body.scrollTop;
+        // offsetX & offsetY returns the relative location of mouse to the 
+        // component.
 
         flag = true;
         dot_flag = true;
@@ -113,8 +115,8 @@ function findxy(res, e) {
         if (flag) {
             prevX = currX;
             prevY = currY;
-            currX = e.clientX// - canvas.offsetLeft - document.body.scrollLeft;
-            currY = e.clientY// - canvas.offsetTop - document.body.scrollTop;
+            currX = e.offsetX// - canvas.offsetLeft - document.body.scrollLeft;
+            currY = e.offsetY// - canvas.offsetTop - document.body.scrollTop;
             draw();
         }
     }
