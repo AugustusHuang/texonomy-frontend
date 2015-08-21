@@ -5,8 +5,6 @@ var canvas, context, flag = false,
     currX = 0,
     prevY = 0,
     currY = 0,
-    //tempX = 0,
-    //tempY = 0,
     dot_flag = false;
 
 var x = "black",
@@ -21,10 +19,6 @@ function init() {
     canvas.addEventListener("mousemove", function (e) {
         findxy('move', e)
     }, false);
-    // Test.
-    //canvas.addEventListener("mousemove", function (e) {
-	//showxy(e)
-    //}, false);
     canvas.addEventListener("mousedown", function (e) {
         findxy('down', e)
     }, false);
@@ -35,15 +29,6 @@ function init() {
         findxy('out', e)
     }, false);
 }
-
-/*
-function showxy(e) {
-    tempX = event.clientX - canvas.offsetLeft + document.body.scrollLeft;
-    tempY = event.clientY - canvas.offsetTop + document.body.scrollTop;
-    document.show.mousex.value = tempX;
-    document.show.mousey.value = tempY;
-}
-*/
 
 /* FIXME: Do we need an eraser? How about colorful symbols? */
 /* function color(obj) {
@@ -77,24 +62,23 @@ function erase() {
     document.getElementById("canvasimg").style.display = "none";
 }
 
-// FIXME: This function should have different name since it is supposed to save
-// the image.
-function recognize() {
+function snapshot() {
     document.getElementById("canvasimg").style.border = "2px solid";
     var dataURL = canvas.toDataURL();
     document.getElementById("canvasimg").src = dataURL;
     document.getElementById("canvasimg").style.display = "inline";
 }
 
-// Find current coordinate, should notice the scroll.
-// NOTE: The coordinate won't change if we scroll down or right, but the
-// absolute position will change.
+function recognize() {
+}
+
+// Find the current position.
 function findxy(res, e) {
     if (res == "down") {
         prevX = currX;
         prevY = currY;
-        currX = e.offsetX// - canvas.offsetLeft - document.body.scrollLeft;
-        currY = e.offsetY// - canvas.offsetTop - document.body.scrollTop;
+        currX = e.offsetX;
+        currY = e.offsetY;
         // offsetX & offsetY returns the relative location of mouse to the 
         // component.
 
@@ -115,8 +99,8 @@ function findxy(res, e) {
         if (flag) {
             prevX = currX;
             prevY = currY;
-            currX = e.offsetX// - canvas.offsetLeft - document.body.scrollLeft;
-            currY = e.offsetY// - canvas.offsetTop - document.body.scrollTop;
+            currX = e.offsetX;
+            currY = e.offsetY;
             draw();
         }
     }
